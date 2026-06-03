@@ -73,21 +73,29 @@ export async function createProduct(data: {
     throw new Error("Unauthorized");
   }
 
-  const [product] = await db.insert(products).values({
-    name: data.name,
-    sku: data.sku,
-    description: data.description || null,
-    categoryId: data.categoryId || null,
-    dimension: data.dimension,
-    baseUnit: data.baseUnit,
-    basePrice: data.basePrice,
-    stockQuantity: data.stockQuantity,
-    minOrderQuantity: data.minOrderQuantity || "1",
-  }).returning();
+  try {
+    const [product] = await db.insert(products).values({
+      name: data.name,
+      sku: data.sku,
+      description: data.description || null,
+      categoryId: data.categoryId || null,
+      dimension: data.dimension,
+      baseUnit: data.baseUnit,
+      basePrice: data.basePrice,
+      stockQuantity: data.stockQuantity,
+      minOrderQuantity: data.minOrderQuantity || "1",
+    }).returning();
 
-  revalidatePath("/admin/products");
-  revalidatePath("/shop");
-  return product;
+    revalidatePath("/admin/products");
+    revalidatePath("/shop");
+    return product;
+  } catch (err: any) {
+    if (err.code === "23505") {
+      throw new Error("A product with this SKU already exists.");
+    }
+    console.error("Failed to create product:", err);
+    throw new Error("Failed to create product. Please verify your inputs.");
+  }
 }
 
 export async function updateProduct(id: string, data: {
@@ -107,17 +115,25 @@ export async function updateProduct(id: string, data: {
     throw new Error("Unauthorized");
   }
 
-  const [product] = await db.update(products)
-    .set({
-      ...data,
-      updatedAt: new Date(),
-    })
-    .where(eq(products.id, id))
-    .returning();
+  try {
+    const [product] = await db.update(products)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(products.id, id))
+      .returning();
 
-  revalidatePath("/admin/products");
-  revalidatePath("/shop");
-  return product;
+    revalidatePath("/admin/products");
+    revalidatePath("/shop");
+    return product;
+  } catch (err: any) {
+    if (err.code === "23505") {
+      throw new Error("A product with this SKU already exists.");
+    }
+    console.error("Failed to update product:", err);
+    throw new Error("Failed to update product.");
+  }
 }
 
 export async function deleteProduct(id: string) {
