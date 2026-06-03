@@ -265,7 +265,7 @@ export function ShopProductsClient({ products, categories }: { products: Product
             const displayPrice = getPricePerUnit(preferredUnit as DisplayUnit, basePrice);
 
             return (
-              <div key={product.id} className="product-card">
+              <div key={product.id} className="product-card card-shine" style={{ animationDelay: `${(filtered.indexOf(product)) * 60}ms` }}>
                 <div className="product-card-header">
                   <span className={`badge badge-${product.dimension}`}>{product.dimension}</span>
                   <div className="stock-indicator">
