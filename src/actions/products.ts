@@ -17,7 +17,7 @@ export async function getProducts(filters?: {
 
   if (filters?.search) {
     conditions.push(
-      sql`(${ilike(products.name, `%${filters.search}%`)} OR ${ilike(products.sku, `%${filters.search}%`)})`
+      sql`(${ilike(products.name, `%${filters.search}%`)} OR ${ilike(products.sku, `%${filters.search}%`)})`,
     );
   }
 
@@ -26,20 +26,26 @@ export async function getProducts(filters?: {
   }
 
   if (filters?.dimension) {
-    conditions.push(eq(products.dimension, filters.dimension as "weight" | "volume" | "count"));
+    conditions.push(
+      eq(
+        products.dimension,
+        filters.dimension as "weight" | "volume" | "count",
+      ),
+    );
   }
 
   if (filters?.isActive !== undefined) {
     conditions.push(eq(products.isActive, filters.isActive));
   }
 
-  const orderBy = filters?.sortBy === "price_asc"
-    ? asc(products.basePrice)
-    : filters?.sortBy === "price_desc"
-    ? desc(products.basePrice)
-    : filters?.sortBy === "name"
-    ? asc(products.name)
-    : desc(products.createdAt);
+  const orderBy =
+    filters?.sortBy === "price_asc"
+      ? asc(products.basePrice)
+      : filters?.sortBy === "price_desc"
+        ? desc(products.basePrice)
+        : filters?.sortBy === "name"
+          ? asc(products.name)
+          : desc(products.createdAt);
 
   const result = await db.query.products.findMany({
     where: conditions.length > 0 ? and(...conditions) : undefined,
@@ -69,22 +75,26 @@ export async function createProduct(data: {
   minOrderQuantity?: string;
 }) {
   const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== "ADMIN") {
+  const role = (session?.user as { role?: string } | undefined)?.role;
+  if (!session?.user || (role !== "ADMIN" && role !== "SELLER")) {
     throw new Error("Unauthorized");
   }
 
   try {
-    const [product] = await db.insert(products).values({
-      name: data.name,
-      sku: data.sku,
-      description: data.description || null,
-      categoryId: data.categoryId || null,
-      dimension: data.dimension,
-      baseUnit: data.baseUnit,
-      basePrice: data.basePrice,
-      stockQuantity: data.stockQuantity,
-      minOrderQuantity: data.minOrderQuantity || "1",
-    }).returning();
+    const [product] = await db
+      .insert(products)
+      .values({
+        name: data.name,
+        sku: data.sku,
+        description: data.description || null,
+        categoryId: data.categoryId || null,
+        dimension: data.dimension,
+        baseUnit: data.baseUnit,
+        basePrice: data.basePrice,
+        stockQuantity: data.stockQuantity,
+        minOrderQuantity: data.minOrderQuantity || "1",
+      })
+      .returning();
 
     revalidatePath("/admin/products");
     revalidatePath("/shop");
@@ -98,25 +108,29 @@ export async function createProduct(data: {
   }
 }
 
-export async function updateProduct(id: string, data: {
-  name?: string;
-  sku?: string;
-  description?: string;
-  categoryId?: string | null;
-  dimension?: "weight" | "volume" | "count";
-  baseUnit?: "g" | "mL" | "unit";
-  basePrice?: string;
-  stockQuantity?: string;
-  minOrderQuantity?: string;
-  isActive?: boolean;
-}) {
+export async function updateProduct(
+  id: string,
+  data: {
+    name?: string;
+    sku?: string;
+    description?: string;
+    categoryId?: string | null;
+    dimension?: "weight" | "volume" | "count";
+    baseUnit?: "g" | "mL" | "unit";
+    basePrice?: string;
+    stockQuantity?: string;
+    minOrderQuantity?: string;
+    isActive?: boolean;
+  },
+) {
   const session = await auth();
   if (!session?.user || (session.user as { role?: string }).role !== "ADMIN") {
     throw new Error("Unauthorized");
   }
 
   try {
-    const [product] = await db.update(products)
+    const [product] = await db
+      .update(products)
       .set({
         ...data,
         updatedAt: new Date(),
@@ -153,7 +167,10 @@ export async function getCategories() {
   });
 }
 
-export async function createCategory(data: { name: string; description?: string }) {
+export async function createCategory(data: {
+  name: string;
+  description?: string;
+}) {
   const session = await auth();
   if (!session?.user || (session.user as { role?: string }).role !== "ADMIN") {
     throw new Error("Unauthorized");
@@ -164,13 +181,17 @@ export async function createCategory(data: { name: string; description?: string 
   return category;
 }
 
-export async function updateCategory(id: string, data: { name?: string; description?: string }) {
+export async function updateCategory(
+  id: string,
+  data: { name?: string; description?: string },
+) {
   const session = await auth();
   if (!session?.user || (session.user as { role?: string }).role !== "ADMIN") {
     throw new Error("Unauthorized");
   }
 
-  const [category] = await db.update(categories)
+  const [category] = await db
+    .update(categories)
     .set(data)
     .where(eq(categories.id, id))
     .returning();
@@ -195,17 +216,27 @@ export async function getDashboardStats() {
     throw new Error("Unauthorized");
   }
 
-  const [productCount] = await db.select({ count: sql<number>`count(*)` }).from(products);
-  const [categoryCount] = await db.select({ count: sql<number>`count(*)` }).from(categories);
-  
+  const [productCount] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(products);
+  const [categoryCount] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(categories);
+
   const { orders: ordersTable } = await import("@/db/schema");
-  const [orderCount] = await db.select({ count: sql<number>`count(*)` }).from(ordersTable);
-  const [pendingCount] = await db.select({ count: sql<number>`count(*)` })
+  const [orderCount] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(ordersTable);
+  const [pendingCount] = await db
+    .select({ count: sql<number>`count(*)` })
     .from(ordersTable)
     .where(eq(ordersTable.status, "PENDING"));
-  const [revenueResult] = await db.select({ 
-    total: sql<string>`COALESCE(SUM(CAST(total_amount AS NUMERIC)), 0)` 
-  }).from(ordersTable).where(eq(ordersTable.status, "DELIVERED"));
+  const [revenueResult] = await db
+    .select({
+      total: sql<string>`COALESCE(SUM(CAST(total_amount AS NUMERIC)), 0)`,
+    })
+    .from(ordersTable)
+    .where(eq(ordersTable.status, "DELIVERED"));
 
   return {
     totalProducts: Number(productCount.count),

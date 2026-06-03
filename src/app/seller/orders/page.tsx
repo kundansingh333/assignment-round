@@ -1,7 +1,7 @@
 import { getOrders } from "@/actions/orders";
-import { AdminOrdersClient } from "@/components/AdminOrdersClient";
+import { SellerOrdersClient } from "@/components/SellerOrdersClient";
 
 export default async function SellerOrdersPage() {
   const orders = await getOrders();
-  return <AdminOrdersClient orders={orders} />;
+  return <SellerOrdersClient orders={orders} />;
 }

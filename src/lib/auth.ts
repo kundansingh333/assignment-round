@@ -78,13 +78,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id;
         token.role = (user as Record<string, unknown>).role as string;
+        token.email = user.email;
       }
+
+      const lookupEmail = token.email as string | undefined;
+      if (lookupEmail) {
+        const existingUser = await db.query.users.findFirst({
+          where: eq(users.email, lookupEmail),
+        });
+
+        if (existingUser) {
+          token.id = existingUser.id;
+          token.role = existingUser.role;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        (session.user as unknown as Record<string, unknown>).role = token.role as string;
+        (session.user as unknown as Record<string, unknown>).role =
+          token.role as string;
       }
       return session;
     },
