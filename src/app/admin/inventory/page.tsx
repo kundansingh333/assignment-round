@@ -1,3 +1,4 @@
+import { FaBoxOpen, FaCheck, FaMoneyBillWave, FaTriangleExclamation } from 'react-icons/fa6';
 import { getProducts } from "@/actions/products";
 import { formatINR, parseNumeric } from "@/lib/format";
 import { autoDisplayUnit, getPricePerUnit } from "@/lib/units";
@@ -28,28 +29,28 @@ export default async function AdminInventoryPage() {
       {/* Inventory Stats */}
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-icon blue">📦</div>
+          <div className="stat-icon blue"><FaBoxOpen /></div>
           <div className="stat-info">
             <h3>{products.length}</h3>
             <p>Total Products</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon green">💰</div>
+          <div className="stat-icon green"><FaMoneyBillWave /></div>
           <div className="stat-info">
             <h3>{formatINR(totalValue)}</h3>
             <p>Total Inventory Value</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon red">⚠️</div>
+          <div className="stat-icon red"><FaTriangleExclamation /></div>
           <div className="stat-info">
             <h3>{lowStockProducts.length}</h3>
             <p>Low Stock Items</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon purple">✅</div>
+          <div className="stat-icon purple"><FaCheck /></div>
           <div className="stat-info">
             <h3>{products.filter(p => p.isActive).length}</h3>
             <p>Active Products</p>
@@ -60,7 +61,7 @@ export default async function AdminInventoryPage() {
       {/* Low Stock Alerts */}
       {lowStockProducts.length > 0 && (
         <div className="card" style={{ marginBottom: "24px", borderLeft: "4px solid var(--accent-danger)" }}>
-          <h3 style={{ marginBottom: "16px", color: "var(--accent-danger)" }}>⚠️ Low Stock Alerts</h3>
+          <h3 style={{ marginBottom: "16px", color: "var(--accent-danger)" }}><FaTriangleExclamation className="icon-inline" /> Low Stock Alerts</h3>
           <div style={{ display: "grid", gap: "8px" }}>
             {lowStockProducts.map(p => {
               const { quantity, unit } = autoDisplayUnit(parseNumeric(p.stockQuantity), p.baseUnit as "g" | "mL" | "unit");

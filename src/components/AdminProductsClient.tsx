@@ -1,4 +1,6 @@
 "use client";
+import { FaBan, FaCheck, FaLightbulb, FaMagnifyingGlass, FaPen, FaTrash } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { createProduct, updateProduct, deleteProduct } from "@/actions/products";
@@ -147,7 +149,7 @@ export function AdminProductsClient({ products: initialProducts, categories }: {
         </div>
         <div className="topbar-actions">
           <div className="search-container">
-            <span className="search-icon">🔍</span>
+            <span className="search-icon"><FaMagnifyingGlass /></span>
             <input
               className="search-input"
               placeholder="Search products..."
@@ -282,7 +284,7 @@ export function AdminProductsClient({ products: initialProducts, categories }: {
                 {/* Price Preview */}
                 {formData.basePrice && (
                   <div className="conversion-display" style={{ marginTop: "8px" }}>
-                    💡 Price Preview: {DIMENSION_UNITS[formData.dimension].map(unit => (
+                    <FaLightbulb className="icon-inline" /> Price Preview: {DIMENSION_UNITS[formData.dimension].map(unit => (
                       <span key={unit} style={{ marginLeft: "12px" }}>
                         {formatINR(getPricePerUnit(unit, parseFloat(formData.basePrice)))} / {unit}
                       </span>
@@ -364,20 +366,20 @@ export function AdminProductsClient({ products: initialProducts, categories }: {
                     <td>
                       <div className="flex gap-sm">
                         <button className="btn btn-ghost btn-sm" onClick={() => openEditForm(product)}>
-                          ✏️
+                          <FaPen />
                         </button>
                         <button
                           className="btn btn-ghost btn-sm"
                           onClick={() => handleToggleActive(product)}
                         >
-                          {product.isActive ? "🚫" : "✅"}
+                          {product.isActive ? <FaBan /> : <FaCheck />}
                         </button>
                         <button
                           className="btn btn-ghost btn-sm"
                           onClick={() => handleDelete(product.id)}
                           style={{ color: "var(--accent-danger)" }}
                         >
-                          🗑️
+                          <FaTrash />
                         </button>
                       </div>
                     </td>

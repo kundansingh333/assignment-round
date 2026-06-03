@@ -1,4 +1,6 @@
 "use client";
+import { FaClipboardList } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { updateOrderStatus } from "@/actions/orders";
@@ -87,7 +89,7 @@ export function AdminOrdersClient({ orders: initialOrders }: { orders: Order[] }
       {/* Orders List */}
       {filteredOrders.length === 0 ? (
         <div className="empty-state">
-          <div className="icon">📋</div>
+          <div className="icon"><FaClipboardList /></div>
           <h3>No orders found</h3>
           <p>No orders match the current filter.</p>
         </div>

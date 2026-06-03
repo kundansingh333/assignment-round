@@ -1,4 +1,6 @@
 "use client";
+import { FaBoxOpen, FaCartShopping, FaCheck, FaClipboardList, FaHourglassHalf, FaTruckFast, FaXmark } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { formatINR, formatDate, parseNumeric } from "@/lib/format";
@@ -30,12 +32,12 @@ interface Order {
   items: OrderItem[];
 }
 
-const statusIcons: Record<string, string> = {
-  PENDING: "⏳",
-  CONFIRMED: "✅",
-  SHIPPED: "🚚",
-  DELIVERED: "📦",
-  CANCELLED: "❌",
+const statusIcons: Record<string, React.ReactNode> = {
+  PENDING: <FaHourglassHalf />,
+  CONFIRMED: <FaCheck />,
+  SHIPPED: <FaTruckFast />,
+  DELIVERED: <FaBoxOpen />,
+  CANCELLED: <FaXmark />,
 };
 
 export function ShopOrdersClient({ orders }: { orders: Order[] }) {
@@ -48,12 +50,12 @@ export function ShopOrdersClient({ orders }: { orders: Order[] }) {
           <h1>My Orders</h1>
           <p className="text-muted text-small">{orders.length} order{orders.length !== 1 ? "s" : ""}</p>
         </div>
-        <Link href="/shop" className="btn btn-primary">🛒 Continue Shopping</Link>
+        <Link href="/shop" className="btn btn-primary"><FaCartShopping className="icon-inline" /> Continue Shopping</Link>
       </div>
 
       {orders.length === 0 ? (
         <div className="empty-state">
-          <div className="icon">📋</div>
+          <div className="icon"><FaClipboardList /></div>
           <h3>No orders yet</h3>
           <p>Browse products and place your first order!</p>
           <Link href="/shop" className="btn btn-primary" style={{ marginTop: "16px" }}>

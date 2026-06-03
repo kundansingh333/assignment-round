@@ -1,4 +1,6 @@
 "use client";
+import { FaCartShopping, FaClipboardList, FaGift, FaTrash } from 'react-icons/fa6';
+
 
 import { useCart } from "@/components/CartProvider";
 import { formatINR } from "@/lib/format";
@@ -62,7 +64,7 @@ export default function CartPage() {
   if (success) {
     return (
       <div className="empty-state" style={{ minHeight: "60vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <div className="icon">🎉</div>
+        <div className="icon"><FaGift className="icon-inline" /></div>
         <h3>{success}</h3>
         <p>Redirecting to your orders...</p>
         <Link href="/shop/orders" className="btn btn-primary" style={{ marginTop: "16px" }}>
@@ -79,7 +81,7 @@ export default function CartPage() {
           <h1>Shopping Cart</h1>
         </div>
         <div className="empty-state">
-          <div className="icon">🛒</div>
+          <div className="icon"><FaCartShopping /></div>
           <h3>Your cart is empty</h3>
           <p>Browse our products and add items to get started.</p>
           <Link href="/shop" className="btn btn-primary" style={{ marginTop: "16px" }}>
@@ -97,7 +99,7 @@ export default function CartPage() {
           <h1>Shopping Cart</h1>
           <p className="text-muted text-small">{itemCount} item{itemCount !== 1 ? "s" : ""} in cart</p>
         </div>
-        <button className="btn btn-ghost" onClick={clearCart}>🗑️ Clear Cart</button>
+        <button className="btn btn-ghost" onClick={clearCart}><FaTrash className="icon-inline" /> Clear Cart</button>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: "24px", alignItems: "start" }}>
@@ -142,7 +144,7 @@ export default function CartPage() {
                     onClick={() => removeItem(item.productId)}
                     style={{ color: "var(--accent-danger)" }}
                   >
-                    🗑️ Remove
+                    <FaTrash className="icon-inline" /> Remove
                   </button>
                 </div>
 
@@ -200,7 +202,7 @@ export default function CartPage() {
             disabled={loading}
             style={{ marginTop: "8px" }}
           >
-            {loading ? <span className="spinner" /> : "📋"}
+            {loading ? <span className="spinner" /> : <FaClipboardList />}
             {loading ? " Placing Order..." : ` Place Order — ${formatINR(grandTotal)}`}
           </button>
 

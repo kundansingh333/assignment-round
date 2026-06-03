@@ -1,4 +1,6 @@
 "use client";
+import { FaFlask } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -64,7 +66,7 @@ export default function RegisterPage() {
         </div>
 
         <div style={{ textAlign: "center", marginBottom: "8px" }}>
-          <span style={{ fontSize: "2.5rem" }}>⚗️</span>
+          <span style={{ fontSize: "2.5rem" }}><FaFlask /></span>
         </div>
         <h1>Create Account</h1>
         <p className="subtitle">Join AasaMedChem to start ordering</p>

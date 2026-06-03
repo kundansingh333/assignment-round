@@ -1,4 +1,6 @@
 "use client";
+import { FaArrowRightFromBracket, FaArrowTrendUp, FaBoxOpen, FaChartSimple, FaClipboardList, FaFlask, FaTags } from 'react-icons/fa6';
+
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,11 +9,11 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { ReactNode } from "react";
 
 const navItems = [
-  { href: "/admin", label: "Dashboard", icon: "📊" },
-  { href: "/admin/products", label: "Products", icon: "📦" },
-  { href: "/admin/categories", label: "Categories", icon: "🏷️" },
-  { href: "/admin/orders", label: "Orders", icon: "📋" },
-  { href: "/admin/inventory", label: "Inventory", icon: "📈" },
+  { href: "/admin", label: "Dashboard", icon: <FaChartSimple /> },
+  { href: "/admin/products", label: "Products", icon: <FaBoxOpen /> },
+  { href: "/admin/categories", label: "Categories", icon: <FaTags /> },
+  { href: "/admin/orders", label: "Orders", icon: <FaClipboardList /> },
+  { href: "/admin/inventory", label: "Inventory", icon: <FaArrowTrendUp /> },
 ];
 
 export function AdminLayoutClient({ children, user }: { children: ReactNode; user: { name?: string | null; email?: string | null } }) {
@@ -21,7 +23,7 @@ export function AdminLayoutClient({ children, user }: { children: ReactNode; use
     <div className="dashboard-layout">
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <h2>⚗️ AasaMedChem</h2>
+          <h2><FaFlask className="icon-inline" /> AasaMedChem</h2>
           <span>Admin Panel</span>
         </div>
 
@@ -57,7 +59,7 @@ export function AdminLayoutClient({ children, user }: { children: ReactNode; use
             className="btn btn-ghost w-full"
             style={{ justifyContent: "flex-start" }}
           >
-            🚪 Sign Out
+            <FaArrowRightFromBracket className="icon-inline" /> Sign Out
           </button>
         </div>
       </aside>

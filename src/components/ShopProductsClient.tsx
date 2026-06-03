@@ -1,4 +1,6 @@
 "use client";
+import { FaCartShopping, FaMagnifyingGlass } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
@@ -100,7 +102,7 @@ export function ShopProductsClient({ products, categories }: { products: Product
       {/* Filters */}
       <div className="filters-bar">
         <div className="search-container">
-          <span className="search-icon">🔍</span>
+          <span className="search-icon"><FaMagnifyingGlass /></span>
           <input
             className="search-input"
             placeholder="Search products..."
@@ -128,9 +130,9 @@ export function ShopProductsClient({ products, categories }: { products: Product
           style={{ width: "auto", minWidth: "130px" }}
         >
           <option value="all">All Types</option>
-          <option value="weight">⚖️ Weight</option>
-          <option value="volume">🧪 Volume</option>
-          <option value="count">📦 Count</option>
+          <option value="weight">Weight</option>
+          <option value="volume">Volume</option>
+          <option value="count">Count</option>
         </select>
 
         <select
@@ -237,7 +239,7 @@ export function ShopProductsClient({ products, categories }: { products: Product
             <div className="modal-footer">
               <button className="btn btn-secondary" onClick={() => setAddingProduct(null)}>Cancel</button>
               <button className="btn btn-primary" onClick={handleAddToCart}>
-                🛒 Add to Cart
+                <FaCartShopping className="icon-inline" /> Add to Cart
               </button>
             </div>
           </div>
@@ -247,7 +249,7 @@ export function ShopProductsClient({ products, categories }: { products: Product
       {/* Product Grid */}
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="icon">🔍</div>
+          <div className="icon"><FaMagnifyingGlass /></div>
           <h3>No products found</h3>
           <p>Try adjusting your search or filters.</p>
         </div>
@@ -296,7 +298,7 @@ export function ShopProductsClient({ products, categories }: { products: Product
                     className="btn btn-primary w-full"
                     onClick={() => openAddToCart(product)}
                   >
-                    🛒 Add to Cart
+                    <FaCartShopping className="icon-inline" /> Add to Cart
                   </button>
                 </div>
               </div>

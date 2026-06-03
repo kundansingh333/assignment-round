@@ -1,4 +1,6 @@
 "use client";
+import { FaBoxOpen, FaChartSimple, FaFlask, FaLock, FaMagnifyingGlass, FaMoneyBillWave, FaRocket, FaScaleBalanced } from 'react-icons/fa6';
+
 
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -8,7 +10,7 @@ export function LandingClient() {
     <div>
       {/* Navigation */}
       <nav className="landing-nav">
-        <span className="logo">⚗️ AasaMedChem</span>
+        <span className="logo"><FaFlask className="icon-inline" /> AasaMedChem</span>
         <div className="nav-links">
           <ThemeToggle />
           <Link href="/login" className="btn btn-ghost">Sign In</Link>
@@ -28,7 +30,7 @@ export function LandingClient() {
         </p>
         <div className="cta-group">
           <Link href="/register" className="btn btn-primary btn-lg">
-            🚀 Start Free
+            <FaRocket className="icon-inline" /> Start Free
           </Link>
           <Link href="/login" className="btn btn-secondary btn-lg">
             Sign In →
@@ -39,7 +41,7 @@ export function LandingClient() {
       {/* Features */}
       <section className="landing-features">
         <div className="feature-card card">
-          <div className="icon">⚖️</div>
+          <div className="icon"><FaScaleBalanced /></div>
           <h3>Smart Unit Conversion</h3>
           <p>
             Seamlessly convert between grams, kilograms, liters, milliliters, and units.
@@ -47,7 +49,7 @@ export function LandingClient() {
           </p>
         </div>
         <div className="feature-card card">
-          <div className="icon">💰</div>
+          <div className="icon"><FaMoneyBillWave /></div>
           <h3>INR Pricing Engine</h3>
           <p>
             Automatic price calculation based on quantity and unit selection.
@@ -55,7 +57,7 @@ export function LandingClient() {
           </p>
         </div>
         <div className="feature-card card">
-          <div className="icon">📦</div>
+          <div className="icon"><FaBoxOpen /></div>
           <h3>Order Management</h3>
           <p>
             Full quotation-to-delivery workflow with status tracking.
@@ -63,7 +65,7 @@ export function LandingClient() {
           </p>
         </div>
         <div className="feature-card card">
-          <div className="icon">🔐</div>
+          <div className="icon"><FaLock /></div>
           <h3>Role-Based Access</h3>
           <p>
             Three distinct roles — Admin, Seller, and Buyer — each with
@@ -71,7 +73,7 @@ export function LandingClient() {
           </p>
         </div>
         <div className="feature-card card">
-          <div className="icon">🔍</div>
+          <div className="icon"><FaMagnifyingGlass /></div>
           <h3>Smart Search & Filter</h3>
           <p>
             Find products instantly with full-text search, category filters,
@@ -79,7 +81,7 @@ export function LandingClient() {
           </p>
         </div>
         <div className="feature-card card">
-          <div className="icon">📊</div>
+          <div className="icon"><FaChartSimple /></div>
           <h3>Inventory Analytics</h3>
           <p>
             Real-time stock levels, low-stock alerts, and revenue tracking
@@ -96,7 +98,7 @@ export function LandingClient() {
         fontSize: "0.85rem",
         borderTop: "1px solid var(--border-primary)"
       }}>
-        <p>⚗️ AasaMedChem — Inventory & Order Management System</p>
+        <p><FaFlask className="icon-inline" /> AasaMedChem — Inventory & Order Management System</p>
         <p style={{ marginTop: "8px" }}>
           Built with Next.js 15 · Neon PostgreSQL · Drizzle ORM
         </p>

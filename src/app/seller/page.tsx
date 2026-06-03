@@ -1,3 +1,4 @@
+import { FaBoxOpen, FaCheck, FaClipboardList, FaHourglassHalf } from 'react-icons/fa6';
 import { getProducts } from "@/actions/products";
 import { getOrders } from "@/actions/orders";
 import { formatINR, parseNumeric } from "@/lib/format";
@@ -24,28 +25,28 @@ export default async function SellerDashboard() {
 
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-icon blue">📦</div>
+          <div className="stat-icon blue"><FaBoxOpen /></div>
           <div className="stat-info">
             <h3>{products.length}</h3>
             <p>Total Products</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon green">✅</div>
+          <div className="stat-icon green"><FaCheck /></div>
           <div className="stat-info">
             <h3>{activeProducts}</h3>
             <p>Active Products</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon purple">📋</div>
+          <div className="stat-icon purple"><FaClipboardList /></div>
           <div className="stat-info">
             <h3>{totalOrders}</h3>
             <p>Total Orders</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon orange">⏳</div>
+          <div className="stat-icon orange"><FaHourglassHalf /></div>
           <div className="stat-info">
             <h3>{pendingOrders}</h3>
             <p>Pending Orders</p>
@@ -57,8 +58,8 @@ export default async function SellerDashboard() {
         <div className="card">
           <h3 style={{ marginBottom: "16px" }}>Quick Actions</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            <Link href="/seller/products" className="btn btn-secondary w-full">📦 Manage Products</Link>
-            <Link href="/seller/orders" className="btn btn-secondary w-full">📋 View Orders</Link>
+            <Link href="/seller/products" className="btn btn-secondary w-full"><FaBoxOpen className="icon-inline" /> Manage Products</Link>
+            <Link href="/seller/orders" className="btn btn-secondary w-full"><FaClipboardList className="icon-inline" /> View Orders</Link>
           </div>
         </div>
         <div className="card">

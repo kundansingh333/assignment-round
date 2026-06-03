@@ -1,4 +1,6 @@
 "use client";
+import { FaArrowRightFromBracket, FaBoxOpen, FaChartSimple, FaClipboardList, FaFlask } from 'react-icons/fa6';
+
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,9 +9,9 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { ReactNode } from "react";
 
 const navItems = [
-  { href: "/seller", label: "Dashboard", icon: "📊" },
-  { href: "/seller/products", label: "My Products", icon: "📦" },
-  { href: "/seller/orders", label: "Orders", icon: "📋" },
+  { href: "/seller", label: "Dashboard", icon: <FaChartSimple /> },
+  { href: "/seller/products", label: "My Products", icon: <FaBoxOpen /> },
+  { href: "/seller/orders", label: "Orders", icon: <FaClipboardList /> },
 ];
 
 export function SellerLayoutClient({ children, user }: { children: ReactNode; user: { name?: string | null; email?: string | null } }) {
@@ -19,7 +21,7 @@ export function SellerLayoutClient({ children, user }: { children: ReactNode; us
     <div className="dashboard-layout">
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <h2>⚗️ AasaMedChem</h2>
+          <h2><FaFlask className="icon-inline" /> AasaMedChem</h2>
           <span>Seller Panel</span>
         </div>
 
@@ -55,7 +57,7 @@ export function SellerLayoutClient({ children, user }: { children: ReactNode; us
             className="btn btn-ghost w-full"
             style={{ justifyContent: "flex-start" }}
           >
-            🚪 Sign Out
+            <FaArrowRightFromBracket className="icon-inline" /> Sign Out
           </button>
         </div>
       </aside>

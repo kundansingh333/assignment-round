@@ -1,4 +1,6 @@
 "use client";
+import { FaFlask, FaVial } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
@@ -50,7 +52,7 @@ export default function LoginPage() {
         </div>
 
         <div style={{ textAlign: "center", marginBottom: "8px" }}>
-          <span style={{ fontSize: "2.5rem" }}>⚗️</span>
+          <span style={{ fontSize: "2.5rem" }}><FaFlask /></span>
         </div>
         <h1>Welcome Back</h1>
         <p className="subtitle">Sign in to your AasaMedChem account</p>
@@ -135,7 +137,7 @@ export default function LoginPage() {
           color: "var(--text-secondary)",
         }}>
           <strong style={{ color: "var(--text-primary)", display: "block", marginBottom: "8px" }}>
-            🧪 Test Credentials
+            <FaVial className="icon-inline" /> Test Credentials
           </strong>
           <div style={{ display: "grid", gap: "4px", fontFamily: "monospace" }}>
             <span>Admin: admin@asamedchem.com / Admin@123</span>

@@ -1,4 +1,6 @@
 "use client";
+import { FaArrowRightFromBracket, FaBagShopping, FaCartShopping, FaClipboardList, FaFlask } from 'react-icons/fa6';
+
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,9 +10,9 @@ import { useCart } from "@/components/CartProvider";
 import { ReactNode } from "react";
 
 const navItems = [
-  { href: "/shop", label: "Browse Products", icon: "🛒" },
-  { href: "/shop/cart", label: "Cart", icon: "🛍️" },
-  { href: "/shop/orders", label: "My Orders", icon: "📋" },
+  { href: "/shop", label: "Browse Products", icon: <FaCartShopping /> },
+  { href: "/shop/cart", label: "Cart", icon: <FaBagShopping /> },
+  { href: "/shop/orders", label: "My Orders", icon: <FaClipboardList /> },
 ];
 
 export function ShopLayoutClient({ children, user }: { children: ReactNode; user: { name?: string | null; email?: string | null } }) {
@@ -21,7 +23,7 @@ export function ShopLayoutClient({ children, user }: { children: ReactNode; user
     <div className="dashboard-layout">
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <h2>⚗️ AasaMedChem</h2>
+          <h2><FaFlask className="icon-inline" /> AasaMedChem</h2>
           <span>Shop</span>
         </div>
 
@@ -62,7 +64,7 @@ export function ShopLayoutClient({ children, user }: { children: ReactNode; user
             className="btn btn-ghost w-full"
             style={{ justifyContent: "flex-start" }}
           >
-            🚪 Sign Out
+            <FaArrowRightFromBracket className="icon-inline" /> Sign Out
           </button>
         </div>
       </aside>

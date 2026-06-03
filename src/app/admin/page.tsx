@@ -1,3 +1,4 @@
+import { FaBoxOpen, FaClipboardList, FaHourglassHalf, FaMoneyBillWave } from 'react-icons/fa6';
 import { getDashboardStats } from "@/actions/products";
 import { getOrders } from "@/actions/orders";
 import { formatINR, formatDate } from "@/lib/format";
@@ -20,28 +21,28 @@ export default async function AdminDashboard() {
       {/* Stats Grid */}
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-icon blue">📦</div>
+          <div className="stat-icon blue"><FaBoxOpen /></div>
           <div className="stat-info">
             <h3>{stats.totalProducts}</h3>
             <p>Total Products</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon green">📋</div>
+          <div className="stat-icon green"><FaClipboardList /></div>
           <div className="stat-info">
             <h3>{stats.totalOrders}</h3>
             <p>Total Orders</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon orange">⏳</div>
+          <div className="stat-icon orange"><FaHourglassHalf /></div>
           <div className="stat-info">
             <h3>{stats.pendingOrders}</h3>
             <p>Pending Orders</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon purple">💰</div>
+          <div className="stat-icon purple"><FaMoneyBillWave /></div>
           <div className="stat-info">
             <h3>{formatINR(stats.totalRevenue)}</h3>
             <p>Revenue (Delivered)</p>
@@ -58,7 +59,7 @@ export default async function AdminDashboard() {
 
         {latestOrders.length === 0 ? (
           <div className="empty-state">
-            <div className="icon">📋</div>
+            <div className="icon"><FaClipboardList /></div>
             <h3>No orders yet</h3>
             <p>Orders will appear here once buyers start placing them.</p>
           </div>

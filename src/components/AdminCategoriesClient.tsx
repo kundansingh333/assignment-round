@@ -1,4 +1,6 @@
 "use client";
+import { FaPen, FaTrash } from 'react-icons/fa6';
+
 
 import { useState } from "react";
 import { createCategory, updateCategory, deleteCategory } from "@/actions/products";
@@ -137,13 +139,13 @@ export function AdminCategoriesClient({ categories }: { categories: Category[] }
                   <td className="text-muted text-small">{cat.description || "—"}</td>
                   <td>
                     <div className="flex gap-sm">
-                      <button className="btn btn-ghost btn-sm" onClick={() => handleEdit(cat)}>✏️</button>
+                      <button className="btn btn-ghost btn-sm" onClick={() => handleEdit(cat)}><FaPen /></button>
                       <button
                         className="btn btn-ghost btn-sm"
                         onClick={() => handleDelete(cat.id)}
                         style={{ color: "var(--accent-danger)" }}
                       >
-                        🗑️
+                        <FaTrash />
                       </button>
                     </div>
                   </td>
